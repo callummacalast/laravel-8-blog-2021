@@ -14,7 +14,7 @@ class PostController extends Controller
             'posts' => Post::latest()->filter(request(['search', 'category', 'author']))->get(),
         ]);
     }
-    
+
 
     public function show(Post $post)
     {
@@ -22,6 +22,4 @@ class PostController extends Controller
             'post' => $post,
         ]);
     }
-
-   
 }

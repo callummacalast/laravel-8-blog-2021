@@ -23,14 +23,12 @@
 
                 <div class="col-span-8">
                     <div class="hidden lg:flex justify-between mb-6">
-                        <a href="/"
-                            class="transition-colors duration-300 relative inline-flex items-center text-lg hover:text-blue-500">
+                        <a href="/" class="transition-colors duration-300 relative inline-flex items-center text-lg hover:text-blue-500">
                             <svg width="22" height="22" viewBox="0 0 22 22" class="mr-2">
                                 <g fill="none" fill-rule="evenodd">
                                     <path stroke="#000" stroke-opacity=".012" stroke-width=".5" d="M21 1v20.16H.84V1z">
                                     </path>
-                                    <path class="fill-current"
-                                        d="M13.854 7.224l-3.847 3.856 3.847 3.856-1.184 1.184-5.04-5.04 5.04-5.04z">
+                                    <path class="fill-current" d="M13.854 7.224l-3.847 3.856 3.847 3.856-1.184 1.184-5.04-5.04 5.04-5.04z">
                                     </path>
                                 </g>
                             </svg>
@@ -39,19 +37,39 @@
                         </a>
 
                         <div class="space-x-2">
-                            <x-category-button :category="$post->category"/>
+                            <x-category-button :category="$post->category" />
                         </div>
                     </div>
 
                     <h1 class="font-bold text-3xl lg:text-4xl mb-10">
-                            {{ $post->title }}
+                        {{ $post->title }}
                     </h1>
 
                     <div class="space-y-4 lg:text-lg leading-loose">{!! $post->body !!}</div>
                 </div>
+                <section class="col-span-8 col-start-5 mt-6 space-y-6">
+                    <form action="" method="post" class=" bg-gray-100 p-6 rounded-xl border border-gray-200 shadow-xl space-x-4">
+                        @csrf
+                        <header class="flex items-center">
+                            <img src="https://i.pravatar.cc/60?{{ auth()->id() }}" alt="Profile Image" class="rounded-full shadow" width="60" height="60">
+                            <h2 class="ml-4">Want to participate?</h2>
+                        </header>
+                        <div>
+                            <textarea name="body" id="" class="w-full mt-5 text-xs focus:outline-none focus:ring rounded p-1" cols="30" rows="10" placeholder="Quick, think of something to"></textarea>
+                        </div>
+                        <div class="flex justify-end mt-5 border-t border-gray-200 pt-5">
+                            <button type="submit" class="bg-blue-500 font-semibold px-18 px-8 py-2 rounded text-white text-xs uppercase hover:bg-blue-700">Post</button>
+                        </div>
+
+                    </form>
+
+                    @foreach ($post->comments as $comment)
+                    <x-post-comment :comment="$comment" />
+                    @endforeach
+                </section>
             </article>
         </main>
-<!-- 
+        <!-- 
         <footer class="bg-gray-100 border border-black border-opacity-5 rounded-xl text-center py-16 px-10 mt-16">
             <img src="/images/lary-newsletter-icon.svg" alt="" class="mx-auto -mb-6" style="width: 145px;">
             <h5 class="text-3xl">Stay in touch with the latest posts</h5>

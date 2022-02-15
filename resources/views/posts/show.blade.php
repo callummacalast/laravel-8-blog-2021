@@ -48,20 +48,29 @@
                     <div class="space-y-4 lg:text-lg leading-loose">{!! $post->body !!}</div>
                 </div>
                 <section class="col-span-8 col-start-5 mt-6 space-y-6">
-                    <form action="" method="post" class=" bg-gray-100 p-6 rounded-xl border border-gray-200 shadow-xl space-x-4">
+                    @auth
+                    <form action="/posts/{{ $post->slug }}/comments" method="post" class=" bg-gray-100 p-6 rounded-xl border border-gray-200 shadow-xl space-x-4">
                         @csrf
                         <header class="flex items-center">
                             <img src="https://i.pravatar.cc/60?{{ auth()->id() }}" alt="Profile Image" class="rounded-full shadow" width="60" height="60">
                             <h2 class="ml-4">Want to participate?</h2>
                         </header>
                         <div>
-                            <textarea name="body" id="" class="w-full mt-5 text-xs focus:outline-none focus:ring rounded p-1" cols="30" rows="10" placeholder="Quick, think of something to"></textarea>
+                            <textarea name="body" id="" class="w-full mt-5 text-xs focus:outline-none focus:ring rounded p-1" cols="30" rows="10" placeholder="Quick, think of something to" required></textarea>
+                            @error('body')
+                            <span class="text-xs text-red-300">{{ $message }}</span>
+                            @enderror
                         </div>
                         <div class="flex justify-end mt-5 border-t border-gray-200 pt-5">
                             <button type="submit" class="bg-blue-500 font-semibold px-18 px-8 py-2 rounded text-white text-xs uppercase hover:bg-blue-700">Post</button>
                         </div>
 
                     </form>
+                    @else
+                    <p>
+                        <a href="/register" class="text-blue-500 hover:text-blue-400">Register</a> or <a href="/login" class="text-blue-500 hover:text-blue-400">Log in</a> to leave a comment!
+                    </p>
+                    @endauth
 
                     @foreach ($post->comments as $comment)
                     <x-post-comment :comment="$comment" />

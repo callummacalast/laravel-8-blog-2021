@@ -25,6 +25,15 @@
                                     <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                         <a href="/admin/posts/{{ $post->id }}/edit" class="text-blue-500 hover:text-indigo-900">Edit</a>
                                     </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                        <!-- <a href="/admin/posts/{{ $post->id }}/edit" class="text-red-500 hover:text-indigo-900">Delete</a> -->
+                                        <form action="/admin/posts/{{ $post->id }}" method="post">
+                                            @csrf
+                                            @method('DELETE')
+
+                                            <button class="text-xs text-red-400">Delete</button>
+                                        </form>
+                                    </td>
                                 </tr>
                                 @endforeach
                             </tbody>
